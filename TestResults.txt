@@ -1,1 +1,9 @@
-Tests have not been executed.
+=======================================
+TEST SUMMARY
+=======================================
+
+✔ test_valid_user ........ PASS
+✔ test_empty_user ........ PASS
+✔ test_session_timeout ... PASS
+
+TOTAL: 3 Passed | 0 Failed

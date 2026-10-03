@@ -1,0 +1,12 @@
+type: plugin4
+name: CursorAgentCockpit
+version: 0.1.0
+displayName: Cursor Agent Cockpit
+description: Agent status, Productivity Suite, and dial controls for Cursor on MX Creative Console
+minimumLoupedeckVersion: 6.1
+
+pluginType: remote
+pluginRuntime: NodeJs22
+entryPoint: index.mjs
+
+pluginCapabilities:

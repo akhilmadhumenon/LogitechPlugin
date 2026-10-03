@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "keyboardShortcuts": [
+    {
+      "id": "command-palette",
+      "label": "Cmd Palette",
+      "description": "Open Cursor command palette",
+      "sequence": [{ "key": "p", "modifiers": ["command", "shift"] }]
+    },
+    {
+      "id": "quick-open",
+      "label": "Quick Open",
+      "sequence": [{ "key": "p", "modifiers": ["command"] }]
+    },
+    {
+      "id": "toggle-sidebar",
+      "label": "Sidebar",
+      "sequence": [{ "key": "b", "modifiers": ["command"] }]
+    },
+    {
+      "id": "toggle-terminal",
+      "label": "Terminal",
+      "sequence": [{ "key": "`", "modifiers": ["control"] }]
+    }
+  ],
+  "promptShortcuts": [
+    {
+      "id": "write-tests",
+      "label": "Tests",
+      "prompt": "Write thorough unit tests for the current file. Cover edge cases.",
+      "target": "agent",
+      "submit": true
+    },
+    {
+      "id": "explain",
+      "label": "Explain",
+      "prompt": "Explain the selected code and its responsibilities.",
+      "target": "chat",
+      "submit": true
+    },
+    {
+      "id": "add-types",
+      "label": "Types",
+      "prompt": "Add precise TypeScript types to the current file without changing behavior.",
+      "target": "agent",
+      "submit": true
+    },
+    {
+      "id": "refactor",
+      "label": "Refactor",
+      "prompt": "Refactor the selection for clarity and maintainability. Keep behavior identical.",
+      "target": "agent",
+      "submit": true
+    },
+    {
+      "id": "review",
+      "label": "Review",
+      "prompt": "Review the current file for bugs, edge cases, and risky assumptions. Be specific.",
+      "target": "agent",
+      "submit": true
+    },
+    {
+      "id": "fix",
+      "label": "Fix",
+      "prompt": "Fix the selected problem or the most recent error. Keep the change minimal.",
+      "target": "agent",
+      "submit": true
+    }
+  ],
+  "models": [
+    { "id": "auto", "label": "Auto", "selectSequence": [] },
+    { "id": "sonnet", "label": "Sonnet", "selectSequence": [] },
+    { "id": "opus", "label": "Opus", "selectSequence": [] }
+  ],
+  "modes": [
+    {
+      "id": "agent",
+      "label": "Agent",
+      "selectSequence": [{ "key": "i", "modifiers": ["command"] }]
+    },
+    {
+      "id": "ask",
+      "label": "Ask",
+      "selectSequence": [{ "key": "l", "modifiers": ["command"] }]
+    },
+    {
+      "id": "edit",
+      "label": "Edit",
+      "selectSequence": [{ "key": "k", "modifiers": ["command"] }]
+    }
+  ],
+  "openModelPicker": [],
+  "openModePicker": []
+}

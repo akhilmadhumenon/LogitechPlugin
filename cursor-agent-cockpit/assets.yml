@@ -1,0 +1,4 @@
+- name: hooks
+  path: assets/hooks/*
+- name: settings
+  path: assets/settings.default.json

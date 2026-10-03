@@ -1,0 +1,18 @@
+node_modules/
+bin/
+obj/
+dist/
+out/
+*.vsix
+*.lplug4
+__pycache__/
+.DS_Store
+.press-probe/
+.reflect-tmp/
+.claude/
+.cursor/
+.vscode/
+
+# Local scratch
+agent-cockpit-plugin/test.py
+agent-cockpit-plugin/test_test.py

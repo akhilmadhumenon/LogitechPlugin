@@ -1,0 +1,7 @@
+haptics:
+  shellWait:
+    DEFAULT: knock
+    MX Master 4: knock
+  agentDone:
+    DEFAULT: happy_alert
+    MX Master 4: happy_alert

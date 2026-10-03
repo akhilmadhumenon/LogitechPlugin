@@ -1,0 +1,22 @@
+type: plugin4
+name: AgentCockpit
+displayName: Cursor Agent Cockpit
+description: Multi-agent status keys (A1–A6) plus Approve / Deny / Kill for Cursor on MX Creative Console
+pluginFileName: AgentCockpitPlugin.dll
+version: 0.1.0
+author: HackCulture
+copyright: Copyright © 2026 HackCulture. All rights reserved.
+
+pluginFolderMac: bin
+pluginFolderWin: bin
+
+supportedDevices:
+  - LoupedeckCtFamily
+
+pluginCapabilities:
+  - HasHapticMapping
+
+minimumLoupedeckVersion: 6.0
+
+license: MIT
+licenseUrl: https://opensource.org/licenses/MIT

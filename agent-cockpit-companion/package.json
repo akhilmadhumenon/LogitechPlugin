@@ -1,0 +1,52 @@
+{
+  "name": "agent-cockpit-companion",
+  "displayName": "Agent Cockpit Companion",
+  "description": "Opens a Cursor composer/chat by id for the MX Creative Console Agent Cockpit plugin.",
+  "version": "0.1.9",
+  "publisher": "hackculture",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Other"],
+  "keywords": ["cursor", "logitech", "agent", "cockpit", "mx creative console"],
+  "main": "./out/extension.js",
+  "activationEvents": ["onStartupFinished"],
+  "contributes": {
+    "commands": [
+      {
+        "command": "agentCockpit.restart",
+        "title": "Agent Cockpit: Restart Companion Server",
+        "category": "Agent Cockpit"
+      },
+      {
+        "command": "agentCockpit.status",
+        "title": "Agent Cockpit: Show Companion Status",
+        "category": "Agent Cockpit"
+      }
+    ],
+    "configuration": {
+      "title": "Agent Cockpit Companion",
+      "properties": {
+        "agentCockpit.port": {
+          "type": "number",
+          "default": 47822,
+          "description": "Loopback port for the companion HTTP server."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "tsc -p .",
+    "watch": "tsc -p . --watch",
+    "package": "vsce package --no-dependencies --out dist/agent-cockpit-companion.vsix"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^2.24.0",
+    "typescript": "^5.3.3"
+  }
+}

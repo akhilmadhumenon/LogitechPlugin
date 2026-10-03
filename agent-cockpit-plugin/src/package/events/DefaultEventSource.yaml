@@ -1,0 +1,10 @@
+displayName: Cursor Agent Cockpit
+description: Haptic cues for agent shell waits and completions
+
+events:
+  - name: shellWait
+    displayName: Shell permission needed
+    description: Fired when an agent needs Approve/Deny for a shell command
+  - name: agentDone
+    displayName: Agent completed
+    description: Fired when an agent finishes successfully (green)

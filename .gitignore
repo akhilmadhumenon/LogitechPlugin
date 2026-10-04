@@ -1,3 +1,5 @@
+.archify/
+
 node_modules/
 bin/
 obj/

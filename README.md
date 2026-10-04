@@ -14,6 +14,12 @@ Cursor hooks  →  C# plugin :47821  →  MX Keypad LCD
 Keypad press  →  Companion :47822  →  Cursor IDE
 ```
 
+## Architecture
+
+GitHub READMEs cannot run interactive HTML, so this is a still of the [Archify](https://github.com/tt-a1i/archify) diagram. Download [docs/architecture.html](docs/architecture.html) and open it in a browser for focus, path tracing, and source links.
+
+[![Cursor Agent Cockpit architecture](docs/architecture.png)](docs/architecture.html)
+
 ## Prerequisites
 
 - macOS (keystrokes use `osascript`; grant **Accessibility** to Logi Plugin Service)

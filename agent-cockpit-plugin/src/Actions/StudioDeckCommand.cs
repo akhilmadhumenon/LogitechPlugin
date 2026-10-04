@@ -227,7 +227,11 @@ namespace Loupedeck.AgentCockpitPlugin.Actions
             if (index == 0)
             {
                 var lcd = UsageStore.Instance.FormatLcd();
-                return CockpitTiles.RenderUsageTile(imageSize, lcd.title, lcd.value);
+                return CockpitTiles.RenderUsageTile(
+                    imageSize,
+                    lcd.title,
+                    lcd.value,
+                    UsageStore.Instance.ColorForCurrentView());
             }
 
             var overlayIcon = OverlayIcon(index);

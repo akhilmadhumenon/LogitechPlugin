@@ -378,8 +378,18 @@ namespace Loupedeck.AgentCockpitPlugin
             var targetMode = GetNestedString(payload, "tool_input", "toModeId")
                 ?? GetNestedString(payload, "tool_input", "to_mode_id")
                 ?? GetString(payload, "toModeId");
+            var generationId = GetString(payload, "generation_id");
 
-            UsageStore.Instance.Observe(eventName, model, mode, status);
+            UsageStore.Instance.Observe(
+                eventName,
+                model,
+                mode,
+                status,
+                generationId,
+                GetInt64(payload, "input_tokens"),
+                GetInt64(payload, "output_tokens"),
+                GetInt64(payload, "cache_read_tokens"),
+                GetInt64(payload, "cache_write_tokens"));
 
             if (eventName == "beforeShellExecution")
             {
@@ -1226,6 +1236,21 @@ namespace Loupedeck.AgentCockpitPlugin
             }
 
             return prop.ValueKind == JsonValueKind.String ? prop.GetString() : prop.ToString();
+        }
+
+        private static Int64? GetInt64(JsonElement payload, String name)
+        {
+            if (payload.ValueKind != JsonValueKind.Object || !payload.TryGetProperty(name, out var prop))
+            {
+                return null;
+            }
+
+            return prop.ValueKind switch
+            {
+                JsonValueKind.Number when prop.TryGetInt64(out var n) => n,
+                JsonValueKind.String when Int64.TryParse(prop.GetString(), out var n) => n,
+                _ => null,
+            };
         }
 
         private static Boolean? GetBool(JsonElement payload, String name)

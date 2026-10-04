@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /**
- * Cursor hook relay — POSTs stdin JSON to the Cursor Agent Cockpit plugin.
- * Install via assets/hooks/hooks.json into ~/.cursor/hooks.json (or project .cursor/).
+ * Cursor hook relay — POSTs stdin JSON to Agent Cockpit on 127.0.0.1:47821.
  */
 import { stdin } from 'node:process';
 
@@ -36,7 +35,6 @@ async function main() {
       responseBody = await res.json().catch(() => ({}));
     }
   } catch {
-    // Fail-open: Cursor proceeds if the plugin is not running.
     responseBody = {};
   }
 

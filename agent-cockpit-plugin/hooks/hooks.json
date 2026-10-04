@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [{ "command": "./hooks/agent-cockpit-relay.mjs" }],
+    "sessionEnd": [{ "command": "./hooks/agent-cockpit-relay.mjs" }],
+    "beforeSubmitPrompt": [{ "command": "./hooks/agent-cockpit-relay.mjs" }],
+    "preToolUse": [{ "command": "./hooks/agent-cockpit-relay.mjs" }],
+    "postToolUse": [{ "command": "./hooks/agent-cockpit-relay.mjs" }],
+    "postToolUseFailure": [{ "command": "./hooks/agent-cockpit-relay.mjs" }],
+    "beforeShellExecution": [
+      { "command": "./hooks/agent-cockpit-relay.mjs", "timeout": 30 }
+    ],
+    "afterShellExecution": [{ "command": "./hooks/agent-cockpit-relay.mjs" }],
+    "beforeMCPExecution": [
+      { "command": "./hooks/agent-cockpit-relay.mjs", "timeout": 30 }
+    ],
+    "afterMCPExecution": [{ "command": "./hooks/agent-cockpit-relay.mjs" }],
+    "stop": [{ "command": "./hooks/agent-cockpit-relay.mjs" }],
+    "afterAgentThought": [{ "command": "./hooks/agent-cockpit-relay.mjs" }],
+    "afterAgentResponse": [{ "command": "./hooks/agent-cockpit-relay.mjs" }]
+  }
+}

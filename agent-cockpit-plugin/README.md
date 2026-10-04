@@ -1,8 +1,17 @@
-# Cursor Agent Cockpit (C#)
+# Agent Cockpit plugin
 
-C# Logi Actions plugin for **MX Creative Console** with live LCD agent slots.
+C# Logi Actions plugin for the MX Creative Console. Start from the [root README](../README.md) for install order.
 
-## Keypad layout
+## Groups (Logi Options+)
+
+| Group | Typical page | Actions |
+|---|---|---|
+| **Cursor · Agent Cockpit** | 1 | Run / Always / Kill + six agent glyphs |
+| **Cursor · Prompts** | 2 | Tests, Explain, Types, Refactor, Review, Fix, Agent, Chat, Edit |
+| **Cursor · Shortcuts** | 3 | Command palette, Quick Open, Sidebar, Terminal, Accept, Reject, @file, @sel, @diff |
+| **Cursor · Studio** | 4 | Usage, Mode, Model, hunks, Accept hunk, Undo, Redo, Problems |
+
+## Agent page
 
 ```
 [ Run / Switch / Approve ] [ Always / Deny ] [ Skip / Kill ]
@@ -10,79 +19,46 @@ C# Logi Actions plugin for **MX Creative Console** with live LCD agent slots.
 [ Target ] [ Spark ] [ Hex ]
 ```
 
-Top row is **dynamic** based on the pinned agent’s pending decision.
-
-## Agent colors
-
-| Color | Meaning |
-|---|---|
-| **Blue** | Running (thinking / tools) |
-| **Pulse yellow** | Shell/MCP **executing** (processing) — Kill only |
-| **Solid yellow** | Real human decision — Run/Always/Skip or Switch/Skip |
-| **Green** | Completed — stays until `sessionEnd` / Kill / new prompt |
-| **Red** | Error — sticky until Kill, or the agent resumes |
-| **Brown** | Stopping — Kill requested; waiting for Cursor stop |
-
-Dark tile = vacant.
-
-## Top-row controls
+Top row follows the **pinned** agent’s pending decision.
 
 | Pending | Key 1 | Key 2 | Key 3 |
 |---|---|---|---|
-| None (blue / pulse yellow) | Approve (dim) | Deny (dim) | **Kill** (when pinned) |
+| None | Approve (dim) | Deny (dim) | **Kill** (when pinned) |
 | Shell / MCP / WebFetch | **Run** | **Always Run** | **Skip** |
 | Switch mode | **Switch** | (dim) | **Skip** |
 
-Sandboxed / auto-allowed shells no longer arm Run/Skip — they only pulse yellow while running, then return to blue when `afterShellExecution` fires.
-
-## Behavior
+Sandboxed shells only pulse yellow while running; they do not arm Run / Skip.
 
 | Control | Behavior |
 |---|---|
-| **Short-press glyph** | Pin + open that chat in Cursor (companion) |
-| **Long-press glyph** | Unpin only (clears control target; chat stays open) |
-| **Run / Switch / Always / Skip** | Resolve hook gate and/or companion Cursor decision commands |
-| **Kill** | Await companion `cancelChat` + Escape/Cmd+. fallback; slot stays **Stopping** until `stop` or 8s timeout |
+| Short-press glyph | Pin + open that chat (companion) |
+| Long-press glyph | Unpin (chat stays open) |
+| Run / Always / Skip / Switch | Resolve the hook gate and/or companion decision |
+| Kill | Companion `cancelChat`, then Escape / Cmd+. ; slot stays brown until `stop` or 8s |
 
-Hooks: `http://127.0.0.1:47821/hook`  
-Companion: `~/.agent-cockpit/companion.json` → `http://127.0.0.1:47822`
+## Usage tile
 
-Haptics (MX Master 4, Options+ haptic mapping): yellow → `knock`, green → `happy_alert`.
+Studio **Usage** cycles **tokens → prompts → tools → model → errors → sessions**.
 
-## Companion
+Tokens are `input_tokens + output_tokens` from Cursor `stop` / `afterAgentResponse` (same `generation_id` is not double-counted). Color uses `tokenUsage` in `~/.cursor-agent-cockpit/settings.json`:
 
-```bash
-cd ../agent-cockpit-companion
-npm install && npm run build
-npx vsce package --no-dependencies --out dist/agent-cockpit-companion.vsix
-cursor --install-extension dist/agent-cockpit-companion.vsix
+```json
+"tokenUsage": { "warn": 1000000, "high": 10000000, "excludeCacheReads": false }
 ```
 
-Reload Cursor — status bar should show `Cockpit:47822`.
-
-Endpoints: `GET /v1/ping`, `POST /v1/open-composer`, `POST /v1/cancel-composer`, `POST /v1/decision`, `GET /v1/pending`.
-
-## Pages 2–4 (productivity actions)
-
-Assign the **9 actions** from each group onto keypad pages 2–4 (same as Orb–Hex on page 1). Page 1 is unchanged.
-
-| Options+ group | Page | Actions (9) |
-|---|---|---|
-| **Cursor · Prompts** | 2 | Tests, Explain, Types, Refactor, Review, Fix, Agent, Chat, Edit |
-| **Cursor · Shortcuts** | 3 | Cmd Palette, Quick Open, Sidebar, Terminal, Accept, Reject, @file, @sel, @diff |
-| **Cursor · Studio** | 4 | Usage, Mode, Model, Hunk −, Hunk +, Accept hunk, Undo, Redo, Problems |
-
-Edit prompts and chords in `~/.cursor-agent-cockpit/settings.json`. Usage persists at `~/.cursor-agent-cockpit/usage-metrics.json`.
-
-Prompt / Agent / Chat keys **focus** the composer via the companion (they no longer send `Cmd+L` / `Cmd+I`, which toggle the pane closed). Clipboard is used only to insert text and is restored afterward. Reload Cursor after updating the companion.
-
-**Studio Usage** press cycles prompts → tools → model → errors → sessions (from the same hook relay as page 1). **Mode** / **Model** apply the next configured item (companion `cycleMode` / `cycleModel` if no keystroke is set).
-
-Continuous loops still belong on the **Dialpad** (Node `Cursor · Dial` group): Diff Hunks, Undo Timeline, Cycle Models, Fire Prompt, Diagnostics. Page 4 keys are the tap stand-ins.
-
-## Build & load
+## Develop
 
 ```bash
 export PATH="$HOME/.dotnet:$PATH"
 dotnet build src/AgentCockpitPlugin.csproj -c Debug
 ```
+
+Build copies package metadata, writes the `.link` file under Logi Plugin Service, and triggers `loupedeck:plugin/AgentCockpit/reload`.
+
+```bash
+curl -s http://127.0.0.1:47821/health
+./scripts/install-hooks.sh
+```
+
+Hook relay: `http://127.0.0.1:47821/hook`  
+Companion discovery: `~/.agent-cockpit/companion.json`

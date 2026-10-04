@@ -12,6 +12,7 @@ namespace Loupedeck.AgentCockpitPlugin
 
     public enum UsageMetricView
     {
+        Tokens,
         Prompts,
         Tools,
         Model,
@@ -49,6 +50,18 @@ namespace Loupedeck.AgentCockpitPlugin
         public List<Keystroke> SelectSequence { get; set; } = new();
     }
 
+    public sealed class TokenUsageSettings
+    {
+        /// <summary>Yellow at or above this many billed tokens (input + output) today.</summary>
+        public Int64 Warn { get; set; } = 1_000_000;
+
+        /// <summary>Red at or above this many billed tokens today.</summary>
+        public Int64 High { get; set; } = 10_000_000;
+
+        /// <summary>If true, subtract cache_read_tokens from the meter (clamped at 0).</summary>
+        public Boolean ExcludeCacheReads { get; set; }
+    }
+
     public sealed class ProductivitySettings
     {
         public Int32 Version { get; set; } = 1;
@@ -58,6 +71,7 @@ namespace Loupedeck.AgentCockpitPlugin
         public List<NamedSequence> Modes { get; set; } = new();
         public List<Keystroke> OpenModelPicker { get; set; } = new();
         public List<Keystroke> OpenModePicker { get; set; } = new();
+        public TokenUsageSettings TokenUsage { get; set; } = new();
     }
 
     public sealed class DailyUsage
@@ -68,5 +82,9 @@ namespace Loupedeck.AgentCockpitPlugin
         public Int32 Sessions { get; set; }
         public Int32 Errors { get; set; }
         public Int32 CompletedRuns { get; set; }
+        public Int64 InputTokens { get; set; }
+        public Int64 OutputTokens { get; set; }
+        public Int64 CacheReadTokens { get; set; }
+        public Int64 CacheWriteTokens { get; set; }
     }
 }

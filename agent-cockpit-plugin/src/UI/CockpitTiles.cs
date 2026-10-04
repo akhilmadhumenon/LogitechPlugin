@@ -472,9 +472,10 @@ namespace Loupedeck.AgentCockpitPlugin
         public static BitmapImage RenderUsageTile(
             PluginImageSize imageSize,
             String title,
-            String value)
+            String value,
+            BitmapColor? background = null)
         {
-            using var bb = CreateFullBleed(imageSize, DeckLive);
+            using var bb = CreateFullBleed(imageSize, background ?? DeckLive);
             var w = bb.Width;
             var h = bb.Height;
             bb.DrawText(

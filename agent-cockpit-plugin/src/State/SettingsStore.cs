@@ -7,7 +7,7 @@ namespace Loupedeck.AgentCockpitPlugin
     using System.Text.Json.Serialization;
 
     /// <summary>
-    /// Reads ~/.cursor-agent-cockpit/settings.json (shared with the Node plugin).
+    /// Reads ~/.cursor-agent-cockpit/settings.json.
     /// </summary>
     internal sealed class SettingsStore
     {
@@ -135,11 +135,17 @@ namespace Loupedeck.AgentCockpitPlugin
                 raw.Modes = defaults.Modes;
             }
 
+            if (raw.TokenUsage == null || raw.TokenUsage.Warn <= 0 || raw.TokenUsage.High <= 0)
+            {
+                raw.TokenUsage = defaults.TokenUsage;
+            }
+
             return raw;
         }
 
         internal static ProductivitySettings CreateDefaults() => new()
         {
+            TokenUsage = new TokenUsageSettings(),
             KeyboardShortcuts = new List<KeyboardShortcut>
             {
                 Chord("command-palette", "Cmd Palette", "p", "command", "shift"),

@@ -1,22 +1,12 @@
 # Agent Cockpit Companion
 
-Tiny Cursor/VS Code extension that lets the MX Creative Console **Agent Cockpit** plugin open chats, cancel agents, and resolve pending decisions.
+Cursor / VS Code extension used by the C# Logi plugin to open chats, cancel agents, and resolve decisions.
 
-## Install
-
-```bash
-cd agent-cockpit-companion
-npm install
-npm run build
-npx vsce package --no-dependencies --out dist/agent-cockpit-companion.vsix
-cursor --install-extension dist/agent-cockpit-companion.vsix
-```
-
-Reload Cursor. Status bar should show `Cockpit:47822`.
+Install from the [root README](../README.md). After reload, the status bar shows `Cockpit:47822`.
 
 ## API (loopback only)
 
-Discovery file: `~/.agent-cockpit/companion.json` (port + bearer token).
+Discovery: `~/.agent-cockpit/companion.json` (port + bearer token). Every request needs `Authorization: Bearer <token>`.
 
 | Method | Path | Body / query |
 |---|---|---|
@@ -25,10 +15,6 @@ Discovery file: `~/.agent-cockpit/companion.json` (port + bearer token).
 | POST | `/v1/cancel-composer` | `{ "composerId": "<conversation_id>" }` |
 | POST | `/v1/decision` | `{ "composerId": "…", "action": "run\|always\|skip\|switch" }` |
 | POST | `/v1/command` | `{ "command": "composer.cycleMode\|composer.cycleModel" }` |
-| GET | `/v1/pending?composerId=` | Best-effort pending kind probe |
+| GET | `/v1/pending?composerId=` | Best-effort pending kind |
 
-All requests require `Authorization: Bearer <token>`.
-
-- Short-press glyph → open that composer (`composer.openComposer…`)
-- Kill → `composer.cancelChat(composerId)` (Cursor’s Stop path), with keystroke fallback from the C# plugin
-- Decision row → `approvePendingShellToolDecision` / allowlist / skip, or accept/reject pending notification for Fetch / Switch mode
+Commands in the Command Palette: **Agent Cockpit: Restart Companion Server**, **Show Companion Status**.

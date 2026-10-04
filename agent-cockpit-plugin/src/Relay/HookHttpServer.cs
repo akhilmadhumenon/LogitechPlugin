@@ -87,6 +87,14 @@ namespace Loupedeck.AgentCockpitPlugin
                     return;
                 }
 
+                if ((ctx.Request.HttpMethod == "POST" || ctx.Request.HttpMethod == "GET")
+                    && path == "/usage/reset-tokens")
+                {
+                    UsageStore.Instance.ResetTokens();
+                    WriteJson(ctx, 200, AgentSlotStore.Instance.BuildHealthPayload());
+                    return;
+                }
+
                 if (ctx.Request.HttpMethod == "POST" && (path == "/hook" || path == "/event"))
                 {
                     using var reader = new StreamReader(ctx.Request.InputStream, ctx.Request.ContentEncoding);

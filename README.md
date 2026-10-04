@@ -16,9 +16,9 @@ Keypad press  →  Companion :47822  →  Cursor IDE
 
 ## Architecture
 
-GitHub READMEs cannot run interactive HTML, so this is a still of the [Archify](https://github.com/tt-a1i/archify) diagram. Download [docs/architecture.html](docs/architecture.html) and open it in a browser for focus, path tracing, and source links.
+GitHub READMEs cannot run interactive HTML, so this is a still of the [Archify](https://github.com/tt-a1i/archify) diagram. Open the live viewer: [architecture.html](https://akhilmadhumenon.github.io/LogitechPlugin/architecture.html).
 
-[![Cursor Agent Cockpit architecture](docs/architecture.png)](docs/architecture.html)
+[![Cursor Agent Cockpit architecture](docs/architecture.png)](https://akhilmadhumenon.github.io/LogitechPlugin/architecture.html)
 
 ## Prerequisites
 

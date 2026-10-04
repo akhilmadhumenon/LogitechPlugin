@@ -1,6 +1,6 @@
 # Cursor Agent Cockpit
 
-Live agent status on a [Logitech MX Creative Console](https://www.logitech.com/products/productivity/mx-creative-console.html) for [Cursor](https://cursor.com).
+Live agent status on a [Logitech MX Creative Console](https://www.logitech.com/en-us/shop/p/buy-mx-creative-console) for [Cursor](https://cursor.com).
 
 Two pieces, both required:
 
@@ -23,7 +23,7 @@ GitHub READMEs cannot run interactive HTML, so this is a still of the [Archify](
 ## Prerequisites
 
 - macOS (keystrokes use `osascript`; grant **Accessibility** to Logi Plugin Service)
-- [Logi Options+](https://www.logitech.com/software/logi-options-plus.html) with Plugin Service
+- [Logi Options+](https://www.logitech.com/en-us/software/logi-options-plus) with Plugin Service
 - MX Creative Console
 - [Cursor](https://cursor.com) with [Hooks](https://cursor.com/docs/agent/hooks) enabled
 - [.NET SDK](https://dotnet.microsoft.com/download) (plugin targets `net10.0`)
